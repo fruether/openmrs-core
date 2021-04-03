@@ -118,7 +118,7 @@ public class PersonLuceneQuery {
 	
 	/**
 	 * The method creates a Lucene search query for a Person based on a soundex search on the givenName, familyNames and middleName
-	 *  
+	 *
 	 * @param query the query that should be executed on the names
 	 * @param birthyear the birthyear the searched person should have
 	 * @param includeVoided is true if voided person should be matched
@@ -165,8 +165,7 @@ public class PersonLuceneQuery {
 		}
 		return luceneQuery;
 	}
-		
-		
+
 	private LuceneQuery<PersonName> getPersonNameQuery(String query, boolean orQueryParser, boolean includeVoided, boolean patientsOnly, LuceneQuery<?> skipSame) {
 		List<String> fields = new ArrayList<>();
 		fields.addAll(Arrays.asList("givenNameExact", "middleNameExact", "familyNameExact", "familyName2Exact"));
@@ -177,7 +176,7 @@ public class PersonLuceneQuery {
 			fields.addAll(Arrays.asList("givenNameAnywhere", "middleNameAnywhere", "familyNameAnywhere", "familyName2Anywhere"));
 		}
 		LuceneQuery<PersonName> luceneQuery = LuceneQuery
-				.newQuery(PersonName.class, sessionFactory.getCurrentSession(), query, fields);
+			.newQuery(PersonName.class, sessionFactory.getCurrentSession(), query, fields);
 
 		if (orQueryParser) {
 			luceneQuery.useOrQueryParser();
@@ -200,7 +199,7 @@ public class PersonLuceneQuery {
 
 		return luceneQuery;
 	}
-
+	
 	public LuceneQuery<PersonAttribute> getPersonAttributeQuery(String query, boolean includeVoided, LuceneQuery<?> skipSame) {
 		return getPersonAttributeQuery(query, false, includeVoided, false, skipSame);
 	}
@@ -226,14 +225,14 @@ public class PersonLuceneQuery {
 			fields.add("valueStart"); //will position "starts with" match higher
 			fields.add("valueAnywhere");
 		}
-
+		
 		LuceneQuery<PersonAttribute> luceneQuery = LuceneQuery
-				.newQuery(PersonAttribute.class, sessionFactory.getCurrentSession(), query, fields);
-
+			.newQuery(PersonAttribute.class, sessionFactory.getCurrentSession(), query, fields);
+		
 		if (orQueryParser) {
 			luceneQuery.useOrQueryParser();
 		}
-
+		
 		if (!includeVoided){
 			luceneQuery.include("voided", false);
 			luceneQuery.include("person.voided", false);

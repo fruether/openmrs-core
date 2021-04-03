@@ -90,7 +90,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	}
 	
 	/**
-	 * Tests a voided relationship between personA and Person B to see if it is still listed when
+	 * Tests a voided relationship between personA and Person BN to see if it is still listed when
 	 * retrieving unvoided relationships for personA and if it is still listed when retrieving
 	 * unvoided relationships for personB.
 	 * 
@@ -221,7 +221,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 * Helper to create relationships with start and/or endDate. Returns a List of the relationships created.
 	 */
 	private List<Relationship> createTestDatedRelationships(Person personA, Person personB, RelationshipType rt)
-	        throws Exception {
+		throws Exception {
 		List<Relationship> rels = new ArrayList<>();
 		
 		// Start & end dates
@@ -323,7 +323,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		// TODO use xml imported in BaseContextSensitiveTest#baseSetupWithStandardDataAndAuthentication()
 		Patient patient = createTestPatient();
 		List<Relationship> rels = createTestDatedRelationships(ps.getPatient(2), patient, personService
-		        .getRelationshipType(4));
+		.getRelationshipType(4));
 		
 		// Get relationships effective 1988-01-01
 		List<Relationship> res = personService.getRelationshipsByPerson(patient, df.parse("1988-01-01"));
@@ -332,7 +332,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		assertEquals(5, res.size());
 		for (Relationship rr : res) {
 			if (!rr.equals(rels.get(0)) && !rr.equals(rels.get(2)) && !rr.equals(rels.get(3)) && !rr.equals(rels.get(7))
-			        && !rr.equals(rels.get(8))) {
+				&& !rr.equals(rels.get(8))) {
 				if (rr.equals(rels.get(1))) {
 					fail("unexpected relationship 1 in results from getRelationshipsByPerson with effeciveDate of 1988-01-01");
 				} else if (rr.equals(rels.get(4))) {
@@ -542,6 +542,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		updateSearchIndex();
 		
 		Set<Person> matches = Context.getPersonService().getSimilarPeople("D Graham", 1979, "M");
+
 		assertEquals(8, matches.size());
 		assertTrue(containsId(matches, 1010));
 		assertTrue(containsId(matches, 1011));
@@ -577,7 +578,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		assertTrue(containsId(matches, 1005));
 		
 	}
-
+	
 	/**
 	 * @see PersonService#getSimilarPeople(String,Integer,String)
 	 */
@@ -649,7 +650,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getAllPersonAttributeTypes_shouldReturnAllPersonAttributeTypesExcludingRetiredWhenIncludeRetiredIsFalse()
-	        throws Exception {
+		throws Exception {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-createRetiredPersonAttributeType.xml");
 		
 		List<PersonAttributeType> attributeTypes = Context.getPersonService().getAllPersonAttributeTypes(false);
@@ -671,7 +672,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getAllPersonAttributeTypes_shouldReturnAllPersonAttributeTypesIncludingRetiredWhenIncludeRetiredIsTrue()
-	        throws Exception {
+		throws Exception {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-createRetiredPersonAttributeType.xml");
 		
 		//TODO: is this the correct way? or should we loop to find a retired type and then perform the following?
@@ -736,7 +737,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getAllRelationships_shouldReturnAllRelationshipExcludingVoidedWhenIncludeVoidedEqualsFalse()
-	        throws Exception {
+		throws Exception {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-createRetiredRelationship.xml");
 		
 		List<Relationship> relationships = Context.getPersonService().getAllRelationships(false);
@@ -877,7 +878,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-createRetiredPersonAttributeType.xml");
 		
 		List<PersonAttributeType> attributeTypes = Context.getPersonService().getPersonAttributeTypes(
-		    "A nonexistent attr type name", null, null, null);
+			"A nonexistent attr type name", null, null, null);
 		assertNotNull(attributeTypes);
 		assertTrue(attributeTypes.isEmpty(), "Number of matched attribute type is 0");
 		
@@ -895,11 +896,11 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getPersonAttributeTypes_shouldReturnEmptyListWhenNoPersonAttributeTypesMatchGivenParameters()
-	        throws Exception {
+		throws Exception {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-createRetiredPersonAttributeType.xml");
 		
 		List<PersonAttributeType> attributeTypes = Context.getPersonService().getPersonAttributeTypes(
-		    "A non-existent attr type name", "java.lang.String", null, false);
+			"A non-existent attr type name", "java.lang.String", null, false);
 		assertNotNull(attributeTypes);
 		assertTrue(attributeTypes.isEmpty(), "Should return empty list");
 	}
@@ -1026,7 +1027,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		Person secondPerson = personService.getPerson(2);
 		RelationshipType relationshipType = personService.getRelationshipType(1);
 		List<Relationship> relationships = personService.getRelationships(firstPerson, secondPerson, relationshipType,
-		    new Date());
+			new Date());
 		assertNotNull(relationships);
 		assertTrue(relationships.isEmpty(), "There should be no relationship found given the from person");
 	}
@@ -1042,7 +1043,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		// TODO use xml imported in BaseContextSensitiveTest#baseSetupWithStandardDataAndAuthentication()
 		Patient patient = createTestPatient();
 		List<Relationship> rels = createTestDatedRelationships(ps.getPatient(2), patient, personService
-		        .getRelationshipType(4));
+			.getRelationshipType(4));
 		
 		// Get relationships effective 1988-01-01
 		List<Relationship> res = personService.getRelationships(ps.getPatient(2), patient, null, df.parse("1988-01-01"));
@@ -1051,7 +1052,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		assertEquals(5, res.size());
 		for (Relationship rr : res) {
 			if (!rr.equals(rels.get(0)) && !rr.equals(rels.get(2)) && !rr.equals(rels.get(3)) && !rr.equals(rels.get(7))
-			        && !rr.equals(rels.get(8))) {
+				&& !rr.equals(rels.get(8))) {
 				if (rr.equals(rels.get(1))) {
 					fail("unexpected relationship 1 in results from getRelationshipsByPerson with effeciveDate of 1988-01-01");
 				} else if (rr.equals(rels.get(4))) {
@@ -1102,7 +1103,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		
 		RelationshipType relationshipType = personService.getRelationshipType(1);
 		List<Relationship> relationships = personService.getRelationships(null, null, relationshipType, new Date(),
-		    new Date());
+			new Date());
 		assertNotNull(relationships);
 		assertTrue(relationships.size() > 0, "There should be relationship found given the relationship type");
 	}
@@ -1118,7 +1119,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		Person secondPerson = personService.getPerson(2);
 		RelationshipType relationshipType = personService.getRelationshipType(1);
 		List<Relationship> relationships = personService.getRelationships(firstPerson, secondPerson, relationshipType,
-		    new Date(), new Date());
+			new Date(), new Date());
 		assertNotNull(relationships);
 		assertTrue(relationships.isEmpty(), "There should be no relationship found given the from person");
 	}
@@ -1134,17 +1135,17 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		// TODO use xml imported in BaseContextSensitiveTest#baseSetupWithStandardDataAndAuthentication()
 		Patient patient = createTestPatient();
 		List<Relationship> rels = createTestDatedRelationships(ps.getPatient(2), patient, personService
-		        .getRelationshipType(4));
+			.getRelationshipType(4));
 		
 		// Get relationships effective between 1987-01-01 and 1988-01-01
 		List<Relationship> res = personService.getRelationships(ps.getPatient(2), patient, null, df.parse("1987-01-01"), df
-		        .parse("1988-01-01"));
+			.parse("1988-01-01"));
 		
 		// Verify # of results and which results we have received
 		assertEquals(5, res.size());
 		for (Relationship rr : res) {
 			if (!rr.equals(rels.get(0)) && !rr.equals(rels.get(2)) && !rr.equals(rels.get(3)) && !rr.equals(rels.get(7))
-			        && !rr.equals(rels.get(8))) {
+				&& !rr.equals(rels.get(8))) {
 				if (rr.equals(rels.get(1))) {
 					fail("unexpected relationship 1 in results from getRelationshipsByPerson effective between 1987-01-01 and 1988-01-01");
 				} else if (rr.equals(rels.get(4))) {
@@ -1273,7 +1274,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void getRelationshipTypes_shouldReturnEmptyListWhenNoPreferredRelationshipTypeMatchTheGivenName()
-	        throws Exception {
+		throws Exception {
 		List<RelationshipType> relationshipTypes = Context.getPersonService().getRelationshipTypes("Doctor/Patient", true);
 		assertNotNull(relationshipTypes);
 		assertTrue(relationshipTypes.isEmpty(), "There should be no relationship type for the given name");
@@ -1705,7 +1706,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	public void unvoidRelationship_shouldUnvoidVoidedRelationship() throws Exception {
 		Relationship relationship = Context.getPersonService().getRelationship(1);
 		Relationship voidedRelationship = Context.getPersonService().voidRelationship(relationship,
-		    "Test Voiding Relationship");
+			"Test Voiding Relationship");
 		
 		assertTrue(voidedRelationship.getVoided());
 		assertNotNull(voidedRelationship.getVoidedBy());
@@ -1719,7 +1720,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		assertNull(unvoidedRelationship.getVoidReason());
 		assertNull(unvoidedRelationship.getDateVoided());
 	}
-
+	
 	/**
 	 * @see PersonService#voidPerson(Person,String)
 	 */
@@ -1749,34 +1750,34 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		assertNotNull(voidedPerson.getPersonDateVoided());
 		assertEquals(voidedPerson.getPersonVoidReason(), "Test Voiding Person");
 	}
-
+	
 	@Test
 	public void voidRelationship_shouldVoidRelationshipIfGivenRelationshipIsNotVoided() {
 		
 		Relationship relationship = personService.getRelationship(1);
 		assertFalse(relationship.getVoided(), "We need an unvoided relationship to test the method");
 		String voidReason = "Something";
-
+		
 		// TODO - voiding is done by the BaseVoidHandler called via AOP before voidRelationship
 		// is executed. Coverage of voidRelationship is low because relationship.getVoided() is true
 		// when entering voidRelationship
 		// Documented at TRUNK-5151
 		personService.voidRelationship(relationship, voidReason);
-
+		
 		Relationship voidedRelationship = personService.getRelationship(1);
 		assertTrue(voidedRelationship.getVoided());
 		assertThat(voidedRelationship.getVoidReason(), is(voidReason));
 		assertNotNull(voidedRelationship.getDateVoided());
 		assertEquals(voidedRelationship.getVoidedBy(), Context.getAuthenticatedUser());
 	}
-
+	
 	@Test
 	public void voidRelationship_shouldVoidRelationshipWithVoidReasonNullIfGivenRelationshipIsNotVoided() {
 		
 		Relationship relationship = personService.getRelationship(1);
 		assertFalse(relationship.getVoided(), "We need an unvoided relationship to test the method");
 		String voidReason = null;
-
+		
 		// TODO - voiding is done by the BaseVoidHandler called via AOP before voidRelationship
 		// is executed. Coverage of voidRelationship is low because relationship.getVoided() is true
 		// when entering voidRelationship
@@ -1799,7 +1800,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		User user = Context.getUserService().getUser(501);
 		assertNotNull(user, "need a user to void");
 		relationship.setVoidedBy(user);
-
+		
 		// TODO - voiding is done by the BaseVoidHandler called via AOP before voidRelationship
 		// is executed. Coverage of voidRelationship is low because relationship.getVoided() is true
 		// when entering voidRelationship
@@ -2038,12 +2039,12 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	public void voidPersonAddress_shouldVoidPersonAddressWithTheGivenReason() throws Exception {
 		executeDataSet("org/openmrs/api/include/PersionServiceTest-voidUnvoidPersonAddress.xml");
 		PersonAddress personAddress = Context.getPersonService().getPersonAddressByUuid(
-		    "33ghd0b5-821c-4e5e-ad1d-a9bce331e118");
+			"33ghd0b5-821c-4e5e-ad1d-a9bce331e118");
 		
 		assertFalse(personAddress.getVoided());
 		
 		PersonAddress voidedPersonAddress = Context.getPersonService().voidPersonAddress(personAddress,
-		    "Test Voiding PersonAddress");
+			"Test Voiding PersonAddress");
 		
 		assertTrue(voidedPersonAddress.getVoided());
 		assertNotNull(voidedPersonAddress.getVoidedBy());
@@ -2058,7 +2059,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	public void unvoidPersonAddress_shouldUnvoidVoidedpersonAddress() throws Exception {
 		executeDataSet("org/openmrs/api/include/PersionServiceTest-voidUnvoidPersonAddress.xml");
 		PersonAddress voidedPersonAddress = Context.getPersonService().getPersonAddressByUuid(
-		    "33ghghb5-821c-4e5e-ad1d-a9bce331e777");
+			"33ghghb5-821c-4e5e-ad1d-a9bce331e777");
 		
 		assertTrue(voidedPersonAddress.getVoided());
 		
@@ -2241,7 +2242,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void savePersonAttributeType_shouldThrowAnErrorWhenTryingToSavePersonAttributeTypeWhilePersonAttributeTypesAreLocked()
-	        throws Exception {
+		throws Exception {
 		PersonService ps = Context.getPersonService();
 		createPersonAttributeTypeLockedGPAndSetValue("true");
 		PersonAttributeType pat = ps.getPersonAttributeType(1);
@@ -2319,7 +2320,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	 */
 	@Test
 	public void purgePersonAttributeType_shouldThrowAnErrorWhileTryingToDeletePersonAttributeTypeWhenPersonAttributeTypesAreLocked()
-	        throws Exception {
+		throws Exception {
 		PersonService ps = Context.getPersonService();
 		createPersonAttributeTypeLockedGPAndSetValue("true");
 		PersonAttributeType pat = ps.getPersonAttributeType(1);
@@ -2460,6 +2461,7 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		personService.savePersonAddress(pAddress);
 		
 	    assertNotNull(personService.getPersonAddressByUuid("y403fafk-e5k4-42d0-9d11-4f52e89d123r"));
+
 	}
 	
 }
