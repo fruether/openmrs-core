@@ -139,6 +139,19 @@ public class HibernatePersonDAO implements PersonDAO {
 		return people;
 	}
 	
+	private Set<Person> executeSoundexNPersonNamesQuery(String[] searchNames, Integer birthyear, boolean includeVoided , String gender) {
+		PersonLuceneQuery personLuceneQuery = new PersonLuceneQuery(sessionFactory);
+		int maxResults = HibernatePersonDAO.getMaximumSearchResults();
+		LinkedHashSet<Person> people = new LinkedHashSet<>();
+		
+		LuceneQuery<PersonName> luceneQuery = personLuceneQuery.getSoundexPersonNameSearchOnNNames(searchNames, birthyear, false, gender);
+		ListPart<Object[]> names = luceneQuery.listPartProjection(0, maxResults, "person.personId");
+		names.getList().forEach(x -> people.add(getPerson((Integer) x[0])));
+		
+		return people;
+		
+	}
+	
 	/**
 	 * @see org.openmrs.api.PersonService#getSimilarPeople(String name, Integer birthyear, String gender)
 	 * @see org.openmrs.api.db.PersonDAO#getSimilarPeople(String name, Integer birthyear, String gender)
@@ -165,7 +178,8 @@ public class HibernatePersonDAO implements PersonDAO {
 			// for large names, although it is hard to imagine getting names with more than
 			// six or so tokens.  This can be easily updated to attain more desirable
 			// results; it is just a working alternative to throwing an exception.
-			
+			return executeSoundexNPersonNamesQuery(names, birthyear, false, gender);
+			/*
 			StringBuilder q = new StringBuilder(
 				"select p from Person p left join p.names as pname where p.personVoided = false and pname.voided = false and ");
 			
@@ -220,7 +234,7 @@ public class HibernatePersonDAO implements PersonDAO {
 			}
 			
 			return new LinkedHashSet<Person>(query.list());
-		}
+		*/}
 	}
 	
 	/**

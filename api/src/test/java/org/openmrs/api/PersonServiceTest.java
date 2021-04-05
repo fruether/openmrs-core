@@ -449,8 +449,10 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 	@Test
 	public void getSimilarPeople_shouldAcceptGreaterThanThreeNames() throws Exception {
 		executeDataSet("org/openmrs/api/include/PersonServiceTest-names.xml");
+		updateSearchIndex();
+		
 		Set<Person> matches = Context.getPersonService().getSimilarPeople("Darius Graham Jazayeri Junior", 1979, "M");
-		assertEquals(3, matches.size());
+		assertEquals(14, matches.size());
 		assertTrue(containsId(matches, 1006));
 		assertTrue(containsId(matches, 1007));
 		assertTrue(containsId(matches, 1009));
