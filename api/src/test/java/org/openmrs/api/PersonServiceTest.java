@@ -452,6 +452,9 @@ public class PersonServiceTest extends BaseContextSensitiveTest {
 		updateSearchIndex();
 		
 		Set<Person> matches = Context.getPersonService().getSimilarPeople("Darius Graham Jazayeri Junior", 1979, "M");
+		for (Person p : matches) {
+			System.out.println(p.getId() + "-->" + p.getNames());
+		}
 		assertEquals(14, matches.size());
 		assertTrue(containsId(matches, 1006));
 		assertTrue(containsId(matches, 1007));

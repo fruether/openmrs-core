@@ -120,8 +120,8 @@ public class HibernatePersonDAO implements PersonDAO {
 	/**
 	 * This method executes a Lucene search on persons based on the soundex filter with two search names given
 	 *
-	 * @param searchName1 the first entered name by the user to be searched for
-	 * @param searchName2 the second entered name by the user to be searched  for
+	 * @param searchName1 the first name entered by the user to be searched
+	 * @param searchName2 the second name to be searched 
 	 * @param birthyear the birthyear the searched person should have 
 	 * @param includeVoided true if voided person should be included 
 	 * @param gender of the person to search for 
